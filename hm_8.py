@@ -27,14 +27,22 @@ def contact_search():
         if flag:
             print('Ничего не найдено!')
         return searched_contacts_index
+# Поиск индекса контакта для замены или удаления
 
 
-def change_contact():
+def find_contact():
     searched_contacts = contact_search()
     changed_index = searched_contacts[0]
     if len(searched_contacts) != 1:
-        print("Укажите номер контакта из списка выше, который редактируем ")
+        print("Укажите номер контакта из списка выше, для продолждения работы")
         changed_index = int(input())
+    return changed_index
+
+# Редактирование контакта
+
+
+def change_contact():
+    changed_index = find_contact()
     with open(phonebook, 'r', encoding='UTF-8') as file:
         file_search = file.read().split('\n')
         contact_as_list = file_search[changed_index].split()
