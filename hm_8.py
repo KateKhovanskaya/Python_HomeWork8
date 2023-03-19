@@ -66,10 +66,22 @@ def change_contact():
     rewrite_phonebook(file_search)
 
 
+# удаление контакта
+def delete_contact():
+    changed_index = find_contact()
+    with open(phonebook, 'r', encoding='UTF-8') as file:
+        file_search = file.read().split('\n')
+    file_search.pop(changed_index)
+    rewrite_phonebook(file_search)
+    print('Контакт удален')
+
+# Перезапись файла
+
+
 def rewrite_phonebook(contacts: list):
     contacts_txt = ''
-    for i in contacts:
-        contacts_txt += f'{i}\n'
+    for i in range(len(contacts)-1):
+        contacts_txt += f'{contacts[i]}\n'
     with open(phonebook, 'w', encoding='UTF-8') as file:
         file.write(contacts_txt)
 
@@ -81,6 +93,7 @@ def main():
               'read - для чтения справочника\n'
               'search - для поиска в справочнике\n'
               'change - для редактирования контактов\n'
+              'delete - для удаления контакта\n'
               'stop - для завершения работы')
         mode = input()
         if mode == 'add':
@@ -91,6 +104,8 @@ def main():
             contact_search()
         elif mode == 'change':
             change_contact()
+        elif mode == 'delete':
+            delete_contact()
         elif mode == 'stop':
             break
 
